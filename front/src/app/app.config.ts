@@ -48,6 +48,5 @@ export const appConfig: ApplicationConfig = {
     }),
     {provide: AUTH_SERVICE, useClass: AuthServiceImpl},
     {provide: API_APPLICATIONS, useClass: ApiApplicationsServiceImpl},
-
   ]
 };
