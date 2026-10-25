@@ -17,7 +17,7 @@ import {CardItem} from '../../../.yalc/components/projects/components/src/lib/mo
 export class CarouselInner implements OnInit {
 
   private readonly campaignApi =inject(CampaignControllerService);
-  private items = signal<CardItem[]>([]);
+  protected items = signal<CardItem[]>([]);
 
   constructor() {}
 

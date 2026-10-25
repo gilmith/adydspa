@@ -9,6 +9,10 @@ import {
 } from 'keycloak-angular';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import { provideApi } from 'adydspa-api-client';
+import {AUTH_SERVICE} from '../../.yalc/components/projects/components/src/lib/services/auth-service';
+import {API_APPLICATIONS} from '../../.yalc/components/projects/components/src/lib/services/api-applications';
+import {AuthServiceImpl} from '../service/auth-service';
+import {ApiApplicationsServiceImpl} from '../service/api-applications-service';
 
 const localhostCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
   urlPattern: /^(http:\/\/localhost:10000)(\/.*)?$/i
@@ -41,7 +45,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
     provideApi({
       basePath: 'http://localhost:10000/api',
-    })
+    }),
+    {provide: AUTH_SERVICE, useClass: AuthServiceImpl},
+    {provide: API_APPLICATIONS, useClass: ApiApplicationsServiceImpl},
 
   ]
 };
