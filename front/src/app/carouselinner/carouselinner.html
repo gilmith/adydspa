@@ -1,2 +1,56 @@
-<p>Inner runing</p>
-<adyd-carousel [cardData]="items()"></adyd-carousel>-->
+<adyd-carousel [itemWidth]="220">
+  @for (card of items(); track card.id) {
+    <div class="adyd-carousel__item">
+      <button
+        type="button"
+        class="adyd-carousel__trigger"
+        (click)="open(card)"
+        [attr.aria-label]="'Ver ' + card.title"
+      >
+        <adyd-card
+          class="d-block w-100"
+          [id]="card.id">
+          <adyd-card-content-campaign
+            class="d-block w-100"
+            [id]="card.id"
+            [imageUrl]="card.url"
+            [title]="card.title"
+            [description]="card.description"
+            [action]="handleSelect"
+            [showButtons]="true">
+          </adyd-card-content-campaign>
+        </adyd-card>
+      </button>
+    </div>
+  }
+</adyd-carousel>
+
+<dialog #dialog class="adyd-carousel__lightbox" (click)="onBackdropClick($event)">
+  <div class="adyd-carousel__lightbox-panel">
+    <button
+      type="button"
+      class="adyd-carousel__lightbox-close"
+      (click)="close()"
+      aria-label="Cerrar"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    @if (selected(); as card) {
+      <adyd-card
+        class="d-block w-100"
+        [id]="card.id"
+      >
+        <adyd-card-content-campaign
+          class="d-block w-100"
+          [id]="card.id"
+          [imageUrl]="card.url"
+          [title]="card.title"
+          [description]="card.description"
+          [action]="handleSelect"
+          [showButtons]="true">
+        </adyd-card-content-campaign>
+      </adyd-card>
+    }
+  </div>
+</dialog>

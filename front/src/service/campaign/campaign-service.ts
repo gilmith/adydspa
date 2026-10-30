@@ -30,6 +30,7 @@ export class CampaignService implements ApiStrategy {
         return this.campaignApi.updateCampaign(
           inputData.id,
           inputData.name as string | undefined,
+          inputData.description as string | undefined,
           data['image'] as Blob | undefined
         );
       case 'deleteCampaignId':
