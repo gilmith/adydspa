@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
     "adydspa-api-client": "file:.yalc/adydspa-api-client",
-    "bootstrap": "^5.3.8",
+    "bootstrap": "6.0.0-alpha.1",
     "components": "file:.yalc/components",
     "keycloak-angular": "^22.0.0",
     "keycloak-js": "^26.2.4",
