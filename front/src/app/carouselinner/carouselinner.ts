@@ -1,19 +1,22 @@
-import {Component, ElementRef, inject, signal, viewChild, computed, output} from '@angular/core';
+import {Component, ElementRef, inject, output, signal, viewChild} from '@angular/core';
 import {CampaignControllerService, CampaignDto, PaginatedDto} from 'adydspa-api-client';
-import { HttpErrorResponse } from '@angular/common/http';
-import {AdydCarousel} from '../../../.yalc/components/projects/components/src/lib/adyd-carousel/adyd-carousel';
+import {HttpErrorResponse} from '@angular/common/http';
 import {
   AdydCardContentCampaign
 } from '../../../.yalc/components/projects/components/src/lib/adyd-card-content-campaign/adyd-card-content-campaign';
+import {delay} from 'rxjs';
+import {AdydCarousel} from '../../../.yalc/components/projects/components/src/lib/adyd-carousel/adyd-carousel';
 import {AdydCard} from '../../../.yalc/components/projects/components/src/lib/adyd-card/adyd-card';
 import {CardItem} from '../../../.yalc/components/projects/components/src/lib/model/card-item';
+import {SpinnerDirective} from '../../../.yalc/components/projects/components/src/lib/directives/spinner-directive';
 
 
 @Component({
   imports: [
     AdydCarousel,
     AdydCardContentCampaign,
-    AdydCard
+    AdydCard,
+    SpinnerDirective
   ],
   selector: 'carouselInner',
   styleUrl: './carouselinner.css',
@@ -25,6 +28,7 @@ export class CarouselInner {
   protected items = signal<CardItem[]>([]);
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
   protected readonly selected = signal<CardItem | null>(null);
+  protected showSpinner = signal(true);
 
   /** Output que emite el item seleccionado completo (equivalente a cardSelected del original). */
   protected cardSelected = output<CardItem>();
@@ -53,8 +57,13 @@ export class CarouselInner {
   }
 
   ngOnInit(): void {
-    this.campaignApi.getAllCampaign(0, 1000).subscribe({
-      next: (value: PaginatedDto) => this.buildCardItems(value),
+    console.log('Estado del spinner:', this.showSpinner()); // ¿Imprime true al arrancar?
+    this.campaignApi.getAllCampaign(0, 1000)
+      .subscribe({
+      next: (value: PaginatedDto) => {
+        this.buildCardItems(value);
+        this.showSpinner.set(false);
+      },
       error: (error: HttpErrorResponse) => console.log(error.message)
     });
   }
