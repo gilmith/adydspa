@@ -61,7 +61,7 @@ export class CarouselInner {
     this.campaignApi.getAllCampaign(0, 1000)
       .subscribe({
       next: (value: PaginatedDto) => {
-        this.buildCardItems(value);
+         this.buildCardItems(value);
         this.showSpinner.set(false);
       },
       error: (error: HttpErrorResponse) => console.log(error.message)
