@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { AuthService } from '../../.yalc/components/projects/components/src/lib/services/auth-service';
-import Keycloak from 'keycloak-js';
+import Keycloak, {KeycloakTokenParsed} from 'keycloak-js';
 
 @Injectable({ providedIn: 'root' })
 export class AuthServiceImpl implements AuthService {
@@ -9,7 +9,7 @@ export class AuthServiceImpl implements AuthService {
   hasPermission(permissions: string[]): boolean {
     if (!this.keycloak) return false;
 
-    const tokenParsed = this.keycloak.tokenParsed as any;
+    const tokenParsed = this.keycloak.tokenParsed as KeycloakTokenParsed;
     if (!tokenParsed) return false;
 
     const roles: string[] = tokenParsed.realm_access?.roles || [];
@@ -22,5 +22,16 @@ export class AuthServiceImpl implements AuthService {
     }
 
     return permissions.some(p => roles.includes(p));
+  }
+
+  logout(): void {
+    this.keycloak.logout({redirectUri: '/login', logoutMethod: "POST"}).then(r => {
+      console.log(JSON.stringify(r));
+    })
+  }
+
+  getUser(): string {
+    const token = this.keycloak.tokenParsed as KeycloakTokenParsed;
+    return 'token.name';
   }
 }
