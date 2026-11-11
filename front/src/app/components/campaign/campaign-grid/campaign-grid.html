@@ -1,0 +1,56 @@
+<div class="container">
+  @for (row of cardItems(); track row) {
+    <div class="row">
+      @for (campaign of row; track campaign.id) {
+        <div class="col-4">
+          <button
+            type="button"
+            class="adyd-carousel__trigger"
+            (click)="open(campaign)"
+            [attr.aria-label]="'Ver ' + campaign.title"
+          >
+            <adyd-card [id]="campaign.id">
+              <adyd-card-content-campaign-2
+                [id]="campaign.id"
+                [imageUrl]="campaign.url"
+                [title]="campaign.title"
+                [description]="campaign.description"
+                [showButtons]="false">
+              </adyd-card-content-campaign-2>
+            </adyd-card>
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+
+
+<dialog #dialog class="adyd-carousel__lightbox" (click)="onBackdropClick($event)">
+  <div class="adyd-carousel__lightbox-panel">
+    <button
+      type="button"
+      class="adyd-carousel__lightbox-close"
+      (click)="close()"
+      aria-label="Cerrar"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    @if (selected(); as card) {
+      <adyd-card
+        class="d-block w-100"
+        [id]="card.id"
+      >
+        <adyd-card-content-campaign-2
+          [id]="card.id"
+          [imageUrl]="card.url"
+          [title]="card.title"
+          [description]="card.description"
+          [showButtons]="true">
+        </adyd-card-content-campaign-2>
+      </adyd-card>
+    }
+  </div>
+</dialog>

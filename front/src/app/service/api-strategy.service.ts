@@ -1,7 +1,7 @@
+import {Observable} from 'rxjs';
 import {
   ApiApplicationsEnum
-} from '../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
-import {Observable} from 'rxjs';
+} from '../../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
 
 export interface ApiStrategy {
 
