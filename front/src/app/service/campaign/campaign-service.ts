@@ -1,10 +1,11 @@
 import {inject, Service} from '@angular/core';
-import {
-  ApiApplicationsEnum
-} from '../../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
+
 import {ApiStrategy} from '../api-strategy.service';
 import {Observable} from 'rxjs';
 import {CampaignControllerService, CampaignDto} from 'adydspa-api-client';
+import {
+  ApiApplicationsEnum
+} from '../../../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
 
 
 @Service()

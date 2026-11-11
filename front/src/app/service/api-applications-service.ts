@@ -1,10 +1,11 @@
 import {inject, Injectable, Service} from '@angular/core';
-import {
-  ApiApplicationsEnum
-} from '../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
+
 import {ApiStrategy} from './api-strategy.service';
 import {CampaignService} from './campaign/campaign-service';
 import {Observable, throwError} from 'rxjs';
+import {
+  ApiApplicationsEnum
+} from '../../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
 
 @Service()
 export class ApiApplicationsServiceImpl {

@@ -1,18 +1,20 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
+import {ApplicationConfig, provideBrowserGlobalErrorListeners} from '@angular/core';
+import {provideRouter, withComponentInputBinding} from '@angular/router';
+import {routes} from './app.routes';
 import {
   createInterceptorCondition,
-  INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG, IncludeBearerTokenCondition,
+  INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+  IncludeBearerTokenCondition,
   includeBearerTokenInterceptor,
   provideKeycloak
 } from 'keycloak-angular';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import { provideApi } from 'adydspa-api-client';
+import {provideApi} from 'adydspa-api-client';
 import {AUTH_SERVICE} from '../../.yalc/components/projects/components/src/lib/services/auth-service';
 import {API_APPLICATIONS} from '../../.yalc/components/projects/components/src/lib/services/api-applications';
-import {AuthServiceImpl} from '../service/auth-service';
-import {ApiApplicationsServiceImpl} from '../service/api-applications-service';
+import {AuthServiceImpl} from './service/auth-service';
+import {ApiApplicationsServiceImpl} from './service/api-applications-service';
+
 
 const localhostCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
   urlPattern: /^(http:\/\/localhost:10000)(\/.*)?$/i
@@ -22,7 +24,7 @@ export const appConfig: ApplicationConfig = {
 
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideKeycloak({
       config: {
         url: 'http://localhost:8070',

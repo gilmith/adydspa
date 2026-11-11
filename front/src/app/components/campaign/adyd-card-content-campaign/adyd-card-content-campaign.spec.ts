@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Carouselinner } from './carouselinner';
+import { AdydCardContentCampaign } from './adyd-card-content-campaign';
 
-describe('Carouselinner', () => {
-  let component: Carouselinner;
-  let fixture: ComponentFixture<Carouselinner>;
+describe('AdydCardContentCampaign', () => {
+  let component: AdydCardContentCampaign;
+  let fixture: ComponentFixture<AdydCardContentCampaign>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Carouselinner],
+      imports: [AdydCardContentCampaign],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Carouselinner);
+    fixture = TestBed.createComponent(AdydCardContentCampaign);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

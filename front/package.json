@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "graph:index": "infigraph index --full",
-    "prestart": "npm run graph:index",
     "prebuild": "npm run graph:index",
     "pretest": "npm run graph:index",
     "prelint": "npm run graph:index",

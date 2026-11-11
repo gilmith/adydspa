@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { AuthService } from '../../.yalc/components/projects/components/src/lib/services/auth-service';
 import Keycloak, {KeycloakTokenParsed} from 'keycloak-js';
+import {AuthService} from '../../../.yalc/components/projects/components/src/lib/services/auth-service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthServiceImpl implements AuthService {
