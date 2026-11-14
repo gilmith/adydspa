@@ -4,7 +4,10 @@ import {CampaignControllerService, PaginatedDto} from 'adydspa-api-client';
 
 
 export const getAllCampaignResolver: ResolveFn<PaginatedDto> = () => {
+  console.log('getAllCampaignResolver invoked');
   const campaignApi = inject(CampaignControllerService);
-  return  campaignApi.getAllCampaign(0, 1000);
+  const data = campaignApi.getAllCampaign(0, 1000);
+  console.log('getAllCampaignResolver data:', data);
+  return data;
 };
 

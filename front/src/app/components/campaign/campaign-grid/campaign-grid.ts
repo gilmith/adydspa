@@ -15,11 +15,10 @@ import {CardItem} from '../../../../../.yalc/components/projects/components/src/
   templateUrl: './campaign-grid.html',
 })
 export class CampaignGrid {
-  readonly campaigns = input<PaginatedDto | undefined>(undefined);
-  private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
+  protected readonly campaigns = input<PaginatedDto | undefined>(undefined);
   protected readonly selected = signal<CardItem | null>(null);
-  protected cardSelected = output<CardItem>();
-  readonly cardItems = computed(() => {
+  private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
+  private readonly cardItems = computed(() => {
     const items = (this.campaigns()?.content ?? [])
       .filter((item): item is CampaignDto => 'fileStoreUrl' in item)
       .map(campaign => ({
@@ -36,7 +35,6 @@ export class CampaignGrid {
     return rows;
   });
 
-  private router = inject(Router);
 
   protected onBackdropClick(event: MouseEvent): void {
     if (event.target === this.dialog().nativeElement) {
@@ -52,13 +50,6 @@ export class CampaignGrid {
 
   protected close(): void {
     this.dialog().nativeElement.close();
-  }
-
-  /** AdydCard solo devuelve el id, así que aquí se recupera el item completo. */
-  protected handleSelect(id: number): void {
-    const card = this.selected();
-    if (!card) return;
-    this.cardSelected.emit(card);
   }
 
 }

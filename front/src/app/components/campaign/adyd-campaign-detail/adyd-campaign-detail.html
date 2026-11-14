@@ -1,0 +1,12 @@
+<adyd-nav-tab>
+  <ng-template adydTab title="Summary">
+      <adyd-form
+        [formData]="formData"
+        [initialModel]="initialModel">
+        <adyd-img-editable
+          [title]="selectedCampaignData().title"
+          [imageUrl]="selectedCampaignData().url"
+          [showButtons]="showButtons()"></adyd-img-editable>
+      </adyd-form>
+  </ng-template>
+</adyd-nav-tab>

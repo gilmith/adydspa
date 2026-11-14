@@ -1,6 +1,8 @@
 import {ApplicationConfig, provideBrowserGlobalErrorListeners} from '@angular/core';
 import {provideRouter, withComponentInputBinding} from '@angular/router';
-import {routes} from './app.routes';
+import {provideFormlyCore} from '@ngx-formly/core';
+import {withFormlyBootstrap} from '@ngx-formly/bootstrap';
+import {routes} from './app-routing';
 import {
   createInterceptorCondition,
   INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
@@ -25,6 +27,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
+    provideFormlyCore(withFormlyBootstrap()),
     provideKeycloak({
       config: {
         url: 'http://localhost:8070',

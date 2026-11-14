@@ -11,10 +11,8 @@
           >
             <adyd-card [id]="campaign.id">
               <adyd-card-content-campaign-2
+                [cardItemInput]="campaign"
                 [id]="campaign.id"
-                [imageUrl]="campaign.url"
-                [title]="campaign.title"
-                [description]="campaign.description"
                 [showButtons]="false">
               </adyd-card-content-campaign-2>
             </adyd-card>
@@ -44,10 +42,8 @@
         [id]="card.id"
       >
         <adyd-card-content-campaign-2
+          [cardItemInput]="card"
           [id]="card.id"
-          [imageUrl]="card.url"
-          [title]="card.title"
-          [description]="card.description"
           [showButtons]="true">
         </adyd-card-content-campaign-2>
       </adyd-card>

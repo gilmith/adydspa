@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdydCardContentCampaign } from './adyd-card-content-campaign';
+import { AdydCampaignDetail } from './adyd-campaign-detail';
 
-describe('AdydCardContentCampaign', () => {
-  let component: AdydCardContentCampaign;
-  let fixture: ComponentFixture<AdydCardContentCampaign>;
+describe('AdydCampaignDetail', () => {
+  let component: AdydCampaignDetail;
+  let fixture: ComponentFixture<AdydCampaignDetail>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdydCardContentCampaign],
+      imports: [AdydCampaignDetail],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdydCardContentCampaign);
+    fixture = TestBed.createComponent(AdydCampaignDetail);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -1,4 +1,4 @@
-import {Component, inject, input} from '@angular/core';
+import {Component, computed, inject, input} from '@angular/core';
 import {
   AdminDirective
 } from '../../../../../.yalc/components/projects/components/src/lib/directives/admin-directive';
@@ -11,6 +11,8 @@ import {
 import {
   API_APPLICATIONS
 } from '../../../../../.yalc/components/projects/components/src/lib/services/api-applications';
+import {Router} from '@angular/router';
+import {CardItem} from '../../../../../.yalc/components/projects/components/src/lib/model/card-item';
 
 @Component({
   imports: [
@@ -23,19 +25,18 @@ import {
 })
 export class AdydCardContentCampaign2 {
 
-  imageUrl = input.required<string>();
-  title = input.required<string>();
-  description = input.required<string>();
-  id = input.required<number>();
-  showButtons = input.required<boolean>();
+  public id = input.required<number>();
+  public showButtons = input.required<boolean>();
+  public readonly cardItemInput = input.required<CardItem>();
   private readonly apiApplications = inject(API_APPLICATIONS);
-
-
-  constructor() {
-  }
+  private readonly route = inject(Router);
+  public readonly description = computed(() => this.cardItemInput().description);
+  public readonly imageUrl = computed(() => this.cardItemInput().url);
+  public readonly title = computed(() => this.cardItemInput().title);
 
   protected edit(id: number) {
-    console.log(id);
+    this.route.navigate([`/campaign/${id}`], {state: {payLoadData: { cardData: this.cardItemInput()}}})
+      .then(() => {console.log('OK')})
   }
 
   protected onDelete(number: number) {
