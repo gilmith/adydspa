@@ -2,7 +2,7 @@
   <ng-template adydTab title="Summary">
       <adyd-form
         [formData]="formData"
-        [initialModel]="initialModel">
+        [initialModel]="initialModel" [saveConfig]=this.saveConfig()>
         <adyd-img-editable
           [title]="selectedCampaignData().title"
           [imageUrl]="selectedCampaignData().url"
