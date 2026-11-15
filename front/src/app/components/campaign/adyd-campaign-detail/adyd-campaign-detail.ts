@@ -8,6 +8,10 @@ import {
   AdydImgEditable
 } from '../../../../../.yalc/components/projects/components/src/lib/adyd-img-editable/adyd-img-editable';
 import {FormlyFieldConfig, FormlyModule} from "@ngx-formly/core";
+import {AdydFormConfig} from '../../../../../.yalc/components/projects/components/src/lib/model/AdydFormConfig';
+import {
+  ApiApplicationsEnum
+} from '../../../../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
 
 @Component({
   imports: [
@@ -35,6 +39,10 @@ export class AdydCampaignDetail {
   protected readonly showButtons = signal<boolean>(false);
   public readonly formData = this.summaryCampaign();
   public initialModel : Record<string, any> = {}
+  protected readonly saveConfig = signal<AdydFormConfig>({
+    api: ApiApplicationsEnum.CAMPAIGN,
+    operationId: 'operacion'
+  });
 
   private summaryCampaign(): FormlyFieldConfig[] {
     return [
