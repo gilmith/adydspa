@@ -32,7 +32,8 @@
             "styles": [
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              ".yalc/components/projects/components/src/lib/adyd-forms.css"
+              ".yalc/components/projects/components/src/lib/adyd-forms.css",
+              ".yalc/components/projects/components/src/styles/adyd-theme.css"
             ]
           },
           "configurations": {

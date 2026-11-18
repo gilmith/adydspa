@@ -1,4 +1,4 @@
-import {Component, computed, signal} from '@angular/core';
+import {Component, computed, input, signal} from '@angular/core';
 import {AdydNavTab} from '../../../../../.yalc/components/projects/components/src/lib/adyd-nav-tab/adyd-nav-tab';
 import {AdydTab} from '../../../../../.yalc/components/projects/components/src/lib/adyd-nav-tab/adyd-tab';
 import {RouterModule} from '@angular/router';
@@ -12,6 +12,7 @@ import {AdydFormConfig} from '../../../../../.yalc/components/projects/component
 import {
   ApiApplicationsEnum
 } from '../../../../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
+import {Campaign} from '../../../service/campaign/campaign.model';
 
 @Component({
   imports: [
@@ -28,26 +29,37 @@ import {
 })
 export class AdydCampaignDetail {
 
+  /** Resuelto por `getCampaignResolver` y enlazado por `withComponentInputBinding`. */
+  public readonly campaign = input.required<Campaign>();
+
   public readonly selectedCampaignData = computed<CardItem>(() => {
-    const state = history.state as { payLoadData?: { cardData?: CardItem } } | null;
-    const cardData = state?.payLoadData?.cardData;
-    if (!cardData) {
-      throw new Error('No se recibió cardData en el estado de navegación');
-    }
-    return cardData;
+    const campaign = this.campaign();
+    return {
+      id: campaign.id,
+      url: campaign.imageUrl ?? '',
+      title: campaign.name,
+      description: campaign.description ?? campaign.name
+    };
   });
   protected readonly showButtons = signal<boolean>(false);
   public readonly formData = this.summaryCampaign();
-  public initialModel : Record<string, any> = {}
+  public readonly initialModel = computed<Record<string, unknown>>(() => {
+    const campaign = this.campaign();
+    return {
+      campaignId: campaign.id,
+      name: campaign.name,
+      description: campaign.description ?? ''
+    };
+  });
   protected readonly saveConfig = signal<AdydFormConfig>({
     api: ApiApplicationsEnum.CAMPAIGN,
-    operationId: 'operacion'
+    operationId: 'updateCampaign'
   });
 
   private summaryCampaign(): FormlyFieldConfig[] {
     return [
       {
-        key: 'title',
+        key: 'name',
         type: 'input',
         props: {
           label: 'Campaign Title',

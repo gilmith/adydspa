@@ -1,9 +1,8 @@
-import {Component, computed, ElementRef, inject, input, output, signal, viewChild} from '@angular/core';
-import {CampaignDto, PaginatedDto} from 'adydspa-api-client';
-import {Router} from '@angular/router';
+import {Component, computed, ElementRef, input, signal, viewChild} from '@angular/core';
 import {AdydCard} from '../../../../../.yalc/components/projects/components/src/lib/adyd-card/adyd-card';
 import {AdydCardContentCampaign2} from '../adyd-card-content-campaign-2/adyd-card-content-campaign-2';
 import {CardItem} from '../../../../../.yalc/components/projects/components/src/lib/model/card-item';
+import {CampaignPage} from '../../../service/campaign/campaign.model';
 
 @Component({
   imports: [
@@ -15,18 +14,16 @@ import {CardItem} from '../../../../../.yalc/components/projects/components/src/
   templateUrl: './campaign-grid.html',
 })
 export class CampaignGrid {
-  protected readonly campaigns = input<PaginatedDto | undefined>(undefined);
+  protected readonly campaigns = input<CampaignPage | undefined>(undefined);
   protected readonly selected = signal<CardItem | null>(null);
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
   private readonly cardItems = computed(() => {
-    const items = (this.campaigns()?.content ?? [])
-      .filter((item): item is CampaignDto => 'fileStoreUrl' in item)
-      .map(campaign => ({
-        id: campaign.id,
-        url: campaign.fileStoreUrl || '',
-        title: campaign.name,
-        description: campaign.description ?? campaign.name
-      }));
+    const items: CardItem[] = (this.campaigns()?.content ?? []).map(campaign => ({
+      id: campaign.id,
+      url: campaign.imageUrl ?? '',
+      title: campaign.name,
+      description: campaign.description ?? campaign.name
+    }));
 
     const rows: CardItem[][] = [];
     for (let i = 0; i < items.length; i += 3) {

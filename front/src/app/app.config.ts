@@ -16,6 +16,8 @@ import {AUTH_SERVICE} from '../../.yalc/components/projects/components/src/lib/s
 import {API_APPLICATIONS} from '../../.yalc/components/projects/components/src/lib/services/api-applications';
 import {AuthServiceImpl} from './service/auth-service';
 import {ApiApplicationsServiceImpl} from './service/api-applications-service';
+import {CampaignGateway} from './service/campaign/campaign.gateway';
+import {CampaignApiGateway} from './service/campaign/campaign-api.gateway';
 
 
 const localhostCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
@@ -53,5 +55,6 @@ export const appConfig: ApplicationConfig = {
     }),
     {provide: AUTH_SERVICE, useClass: AuthServiceImpl},
     {provide: API_APPLICATIONS, useClass: ApiApplicationsServiceImpl},
+    {provide: CampaignGateway, useClass: CampaignApiGateway},
   ]
 };

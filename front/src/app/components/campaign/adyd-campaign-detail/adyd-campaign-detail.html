@@ -5,8 +5,9 @@
         <div class="col-auto">
           <adyd-form
             [formData]="formData"
-            [initialModel]="initialModel" [saveConfig]=this.saveConfig()>
+            [initialModel]="initialModel()" [saveConfig]=this.saveConfig()>
             <adyd-img-editable
+              fieldName="image"
               [title]="selectedCampaignData().title"
               [imageUrl]="selectedCampaignData().url"
               [showButtons]="showButtons()"></adyd-img-editable>
