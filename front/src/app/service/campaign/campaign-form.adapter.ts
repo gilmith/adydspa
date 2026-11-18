@@ -1,7 +1,6 @@
 import {inject, Service} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
-
-import {ApiStrategy} from '../api-strategy.service';
+import {ApiApplications} from '../../../../.yalc/components/projects/components/src/lib/services/api-applications';
 import {
   ApiApplicationsEnum
 } from '../../../../.yalc/components/projects/components/src/lib/services/enum/enum-api-aplications';
@@ -12,20 +11,15 @@ import {GetCampaignsInteractor} from './interactors/get-campaigns.interactor';
 import {UpdateCampaignInteractor} from './interactors/update-campaign.interactor';
 
 /**
- * Adaptador del contrato genérico que consume `<adyd-form>`.
- * La lógica de negocio vive en los interactors; esta clase solo traduce
- * el payload sin tipar del formulario a la entrada de cada caso de uso.
+ * Adaptador de frontera para `<adyd-form>`.
+ *
+ * El componente de la librería no puede inyectar interactors: solo conoce el
+ * contrato `API_APPLICATIONS.executeService(api, data, operationId)`. Esta clase
+ * traduce ese payload sin tipar a la entrada de cada interactor. No contiene
+ * lógica de negocio y desaparecerá cuando el form acepte un handler propio.
  */
 @Service()
-export class CampaignService implements ApiStrategy {
-
-  private static readonly OPERATIONS = new Set([
-    'getAllCampaign',
-    'createCampaign',
-    'getCampaignById',
-    'updateCampaign',
-    'deleteCampaignId'
-  ]);
+export class CampaignFormAdapter implements ApiApplications {
 
   private readonly createCampaign = inject(CreateCampaignInteractor);
   private readonly deleteCampaign = inject(DeleteCampaignInteractor);
@@ -33,11 +27,15 @@ export class CampaignService implements ApiStrategy {
   private readonly getCampaigns = inject(GetCampaignsInteractor);
   private readonly updateCampaign = inject(UpdateCampaignInteractor);
 
-  canConsume(apiEnum: ApiApplicationsEnum, operationId: string): boolean {
-    return ApiApplicationsEnum.CAMPAIGN === apiEnum && CampaignService.OPERATIONS.has(operationId);
-  }
+  executeService(
+    api: ApiApplicationsEnum,
+    data: Record<string, string | number | File>,
+    operationId: string
+  ): Observable<unknown> {
+    if (api !== ApiApplicationsEnum.CAMPAIGN) {
+      return throwError(() => new Error(`Aplicación no soportada: ${api}`));
+    }
 
-  execute(data: Record<string, string | number | File>, operationId: string): Observable<unknown> {
     switch (operationId) {
       case 'createCampaign':
         return this.createCampaign.execute({

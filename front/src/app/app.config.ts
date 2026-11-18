@@ -15,9 +15,9 @@ import {provideApi} from 'adydspa-api-client';
 import {AUTH_SERVICE} from '../../.yalc/components/projects/components/src/lib/services/auth-service';
 import {API_APPLICATIONS} from '../../.yalc/components/projects/components/src/lib/services/api-applications';
 import {AuthServiceImpl} from './service/auth-service';
-import {ApiApplicationsServiceImpl} from './service/api-applications-service';
 import {CampaignGateway} from './service/campaign/campaign.gateway';
 import {CampaignApiGateway} from './service/campaign/campaign-api.gateway';
+import {CampaignFormAdapter} from './service/campaign/campaign-form.adapter';
 
 
 const localhostCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
@@ -54,7 +54,7 @@ export const appConfig: ApplicationConfig = {
       basePath: 'http://localhost:10000/api',
     }),
     {provide: AUTH_SERVICE, useClass: AuthServiceImpl},
-    {provide: API_APPLICATIONS, useClass: ApiApplicationsServiceImpl},
+    {provide: API_APPLICATIONS, useClass: CampaignFormAdapter},
     {provide: CampaignGateway, useClass: CampaignApiGateway},
   ]
 };
