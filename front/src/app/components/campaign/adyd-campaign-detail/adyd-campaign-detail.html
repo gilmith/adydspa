@@ -8,8 +8,8 @@
             [initialModel]="initialModel()" [saveConfig]=this.saveConfig()>
             <adyd-img-editable
               fieldName="image"
-              [title]="selectedCampaignData().title"
-              [imageUrl]="selectedCampaignData().url"
+              [title]="campaign().name"
+              [imageUrl]="campaign().imageUrl ?? 'no image'"
               [showButtons]="showButtons()"></adyd-img-editable>
           </adyd-form>
         </div>

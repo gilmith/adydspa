@@ -34,3 +34,9 @@ Thumbs.db
 #yalc
 .yalc/
 yalc.lock
+
+front/.infigraph
+front/.vscode
+front/.claude
+./.infigraph
+front/package-lock.json

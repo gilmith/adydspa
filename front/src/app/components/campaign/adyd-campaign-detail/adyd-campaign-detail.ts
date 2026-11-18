@@ -2,7 +2,6 @@ import {Component, computed, input, signal} from '@angular/core';
 import {AdydNavTab} from '../../../../../.yalc/components/projects/components/src/lib/adyd-nav-tab/adyd-nav-tab';
 import {AdydTab} from '../../../../../.yalc/components/projects/components/src/lib/adyd-nav-tab/adyd-tab';
 import {RouterModule} from '@angular/router';
-import {CardItem} from '../../../../../.yalc/components/projects/components/src/lib/model/card-item';
 import {AdydForm} from '../../../../../.yalc/components/projects/components/src/lib/adyd-form/adyd-form';
 import {
   AdydImgEditable
@@ -31,16 +30,6 @@ export class AdydCampaignDetail {
 
   /** Resuelto por `getCampaignResolver` y enlazado por `withComponentInputBinding`. */
   public readonly campaign = input.required<Campaign>();
-
-  public readonly selectedCampaignData = computed<CardItem>(() => {
-    const campaign = this.campaign();
-    return {
-      id: campaign.id,
-      url: campaign.imageUrl ?? '',
-      title: campaign.name,
-      description: campaign.description ?? campaign.name
-    };
-  });
   protected readonly showButtons = signal<boolean>(false);
   public readonly formData = this.summaryCampaign();
   public readonly initialModel = computed<Record<string, unknown>>(() => {
