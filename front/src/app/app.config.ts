@@ -51,7 +51,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
     provideApi({
-      basePath: 'http://localhost:10000/api',
+      basePath: 'http://localhost:10000',
     }),
     {provide: AUTH_SERVICE, useClass: AuthServiceImpl},
     {provide: API_APPLICATIONS, useClass: CampaignFormAdapter},

@@ -1,7 +1,7 @@
 <adyd-nav-tab>
   <ng-template adydTab title="Summary">
     <div class="container">
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-auto">
           <adyd-form
             [formData]="formData"
@@ -14,7 +14,29 @@
           </adyd-form>
         </div>
       </div>
-      <div class="row">
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <h1>"tal"</h1>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template adydTab title="Summary2">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <adyd-form
+            [formData]="formData"
+            [initialModel]="initialModel()" [saveConfig]=this.saveConfig()>
+            <adyd-img-editable
+              fieldName="image"
+              [title]="campaign().name"
+              [imageUrl]="campaign().imageUrl ?? 'no image'"
+              [showButtons]="showButtons()"></adyd-img-editable>
+          </adyd-form>
+        </div>
+      </div>
+      <div class="row justify-content-center">
         <div class="col-6">
           <h1>"tal"</h1>
         </div>

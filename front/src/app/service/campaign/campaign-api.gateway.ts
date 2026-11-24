@@ -13,6 +13,8 @@ import {
   UpdateCampaignInput
 } from './campaign.model';
 
+const API_VERSION = '2.0';
+
 /**
  * Adaptador que aísla al resto de la aplicación del cliente OpenAPI generado.
  */
@@ -23,31 +25,31 @@ export class CampaignApiGateway extends CampaignGateway {
 
   getAll(page: number, size: number, sort?: string): Observable<CampaignPage> {
     return this.api
-      .getAllCampaign(page, size, sort)
+      .getAllCampaign(API_VERSION, page, size, sort)
       .pipe(map(dto => this.toPage(dto)));
   }
 
   getById(id: number): Observable<Campaign> {
     return this.api
-      .getCampaignById(id)
+      .getCampaignById(id, API_VERSION)
       .pipe(map(dto => this.toCampaign(dto)));
   }
 
   create(input: CreateCampaignInput): Observable<Campaign> {
     return this.api
-      .createCampaign({name: input.name, fileStoreUrl: input.imageUrl})
+      .createCampaign(API_VERSION, {name: input.name, fileStoreUrl: input.imageUrl})
       .pipe(map(dto => this.toCampaign(dto)));
   }
 
   update(input: UpdateCampaignInput): Observable<Campaign> {
     return this.api
-      .updateCampaign(input.id, input.name, input.description, input.image)
+      .updateCampaign(input.id, API_VERSION, input.name, input.description, input.image)
       .pipe(map(dto => this.toCampaign(dto)));
   }
 
   delete(id: number): Observable<void> {
     return this.api
-      .deleteCampaignId(id)
+      .deleteCampaignId(id, API_VERSION)
       .pipe(map(() => undefined));
   }
 
